@@ -163,7 +163,7 @@ gayfish
 ```
 
 The p-value  is 1e-08, odds ratio 0.16, and the 95 percent confidence interval is
- 0.066 0.344
+ 0.066, 0.344.
 
 
 ```{r}
