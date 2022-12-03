@@ -1,6 +1,6 @@
 ---
 title: "Covid91 vaccine study FinalFall2022"
-author: "Put your name here!"
+author: "Veronica Gonzalez "
 output: 
   html_document:
     number_sections: true
@@ -8,6 +8,8 @@ output:
     toc_depth: 5
 date: "`r Sys.Date()`" 
 ---
+
+`
 
 ```{r include=FALSE,echo=FALSE}
 require(tidyverse)
@@ -18,23 +20,214 @@ FinalDat <-read.csv(file="finalFall2022.csv",header=TRUE)
 FinalData <- FinalDat  %>% select(-one_of("X"))
 FinalData <- FinalData %>%
 mutate(across(where(is.character), as.factor))
+FinalData$treatment <- relevel(FinalData$treatment,ref="placebo")
+#FinalData$infected <- relevel(FinalData$infected,ref="OK")
+M = filter(FinalData, sex == "M")
+F = filter(FinalData, sex == "F")
+gay = filter(FinalData, LGBTQ == "gay")
+DrugUser = filter(FinalData, DrugUser == "yes")
 ```
+
 
 # Introduction
 
 A new  preventative vaccine (covid921) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of subpopulations tracked. Consider population subgroups by gender( guys and gals), drug use, and sexual orientation. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine. Structure your report in four sections each devoted to one of the four subgroups, use null and alternative hypothesis statements and correct statistical verbage when referencing p-values in conclusions.
 
+
+## Methods
+What we will be doing here is looking at the final data and changing it and grouping the variables to the patients that were given the vaccine and the placebo. Also, looking at the others who received COVID and look at the differences that were made from the gays, males,females,and druggies.
+
+
 ## Males
 
+```{r}
+basic <- M %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+basicC <- ggplot(basic,aes(x=infected,y=count,fill=treatment))
+basicC + geom_bar(stat="identity",position="dodge")
+basicCC <- ggplot(basic,aes(x=infected,y=prcnt*100,fill=treatment)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+
+The bar chart shows that the males that had COVID19 who received the placebo had over 60%, and the ones who received the vaccine had 30% infected. 
+
+## Numerical
+```{r}
+table1 <- xtabs(~infected + treatment, data=M)
+rowPerc(table1)
+colPerc(table1)
+```
+
+The men who got infected from COVID19 and was given the placebo had a 68.44 %. There was a 32% who were infected that had the vaccine. This states that those who received the vaccine had less people infected where as the one with the placebo were more infected. Proving that the vaccine is more credible. 
+
+
+##Inferential
+
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+Mfish <- fisher.test(table1)
+Mfish
+```
+
+The men had a 95% confidence interval of 1.7324 for the placebo, and the men with vaccines received a 2.7521. The p-value was 2.364e-12 showing that the vaccines kept the men from getting covid more than the placebo. 
+
+```{r}
+effect <- Mfish$p.value/(Mfish$p.value +1)
+effectivenessM = Mfish$estimate/(Mfish$estimate +1)*100
+print(effectivenessM)
+```
+
+```{r}
+low=(Mfish$conf.int[1]/(Mfish$conf.int[1] +1))*100
+hi=(Mfish$conf.int[2]/(Mfish$conf.int[2] +1))*100
+options(digits=2)
+```
+
+the hi is 73 and the low is 63
 
 ## Females
 
+```{r}
+basic <- F %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+basicC <- ggplot(basic,aes(x=infected,y=count,fill=treatment))
+basicC + geom_bar(stat="identity",position="dodge")
+basicCC <- ggplot(basic,aes(x=infected,y=prcnt*100,fill=treatment)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+
+For the woman around 58% of them got sick with the vaccine, and the other 41% of them got infected with the placebo. The ones who didn't get sick and received the placebo was at 50% and the ones who received the vaccine had 49%. 
+
+## Numerical
+```{r}
+table1 <- xtabs(~infected + treatment, data=F)
+rowPerc(table1)
+colPerc(table1)
+```
+
+The female who took the placebo only had a 42% and the ones who took the vaccine a 57%. This shows that the vaccines were not as effective as they were for the men. From what it looks like females are more likely to receive covid with the vaccine than the males. 
+
+##Inferencial 
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+Ffish <- fisher.test(table1)
+Ffish
+```
+
+There is a  95% confidence intervals of 0.60, 0.92, and an odds ratio 0.74. The p-value is 0.005 which is very low showing that there's more of a chance females getting covid even with vaccines. 
+
+```{r}
+effect <- Ffish$p.value/(Ffish$p.value +1)
+effectivenessF = Ffish$estimate/(Ffish$estimate +1)*100
+print(effectivenessF)
+```
+
+```{r}
+low=(Ffish$conf.int[1]/(Ffish$conf.int[1] +1))*100
+hi=(Ffish$conf.int[2]/(Ffish$conf.int[2] +1))*100
+options(digits=2)
+```
+
+The Hi is 48 and the low is 37.
 
 ## LGBTQ
 
+## Graphical 
+```{r}
+basic <- gay %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+basicC <- ggplot(basic,aes(x=infected,y=count,fill=treatment))
+basicC + geom_bar(stat="identity",position="dodge")
+basicCC <- ggplot(basic,aes(x=infected,y=prcnt*100,fill=treatment)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
 
+About 10% got infected received placebo, and there was a 78% of those who had the vaccine. The ones who took the placebo and weren't infected had a 49% and the ones with the vaccine had a 51%. 
+
+## Numerical
+```{r}
+table1 <- xtabs(~infected + treatment, data=gay)
+rowPerc(table1)
+colPerc(table1)
+```
+
+
+##Inferential
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+gayfish <- fisher.test(table1)
+gayfish
+```
+
+The p-value  is 1e-08, odds ratio 0.16, and the 95 percent confidence interval is
+ 0.066 0.344
+
+
+```{r}
+low=(gayfish$conf.int[1]/(gayfish$conf.int[1] +1))*100
+hi=(gayfish$conf.int[2]/(gayfish$conf.int[2] +1))*100
+options(digits=2)
+```
+
+The Hi is 26 and the low is 6
 
 ## Druggies
 
+## Graphical
+
+```{r}
+basic <- DrugUser %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+basicC <- ggplot(basic,aes(x=infected,y=count,fill=treatment))
+basicC + geom_bar(stat="identity",position="dodge")
+basicCC <- ggplot(basic,aes(x=infected,y=prcnt*100,fill=treatment)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+
+The ones who took the the vaccine had a 83% and the ones who took the placebo was 17%. Stating that the drug users had more chances of getting covid with the vaccine.
+
+# Numerical
+```{r}
+table1 <- xtabs(~infected + treatment, data=DrugUser)
+rowPerc(table1)
+colPerc(table1)
+```
+
+The ones infected with the placebo was 17% and an 83% for those who took the vaccine. Stating that those who took the vaccine had more of a chance of getting covid with the vaccine. 
+
+## Inferential 
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+DrugUserfish <- fisher.test(table1)
+DrugUserfish
+```
+
+The p-value is 3e-07, 95 percent confidence interval is 0.094, 0.418. The p-vale is very low. 
+
+```{r}
+effect <- DrugUserfish$p.value/(DrugUserfish$p.value +1)
+effectivenessDrugUser = DrugUserfish$estimate/(DrugUserfish$estimate +1)*100
+print(effectivenessDrugUser)
+```
+
+
+```{r}
+low=(DrugUserfish$conf.int[1]/(DrugUserfish$conf.int[1] +1))*100
+hi=(DrugUserfish$conf.int[2]/(DrugUserfish$conf.int[2] +1))*100
+options(digits=2)
+```
+
+hi is 29 and low is 9
 
 # Overall Results and Conclusions
+
+Finally, looking at all the data from drug users, gays, male, and female it looks like the men who took the vaccine and were not gay showed better results with covid. There was only 30% of the male who got infected and had the vaccine with the placebo it was 60%. For the females the ones who took the vaccine had 58% and with the vaccine it was 41% with the placebo. For the LGBQT about 10% got infected received placebo, and there was a 78% of those who had the vaccine. For the drug users with the vaccine had a 83% and the ones who took the placebo was 17%. Again the male has the highest effectiveness compared to all the other categories and the highest p-value with 5.307e-12. 
+
+
+
+
+ 
+
