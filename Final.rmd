@@ -57,7 +57,7 @@ rowPerc(table1)
 colPerc(table1)
 ```
 
-The men who got infected from COVID19 and was given the placebo had a 68.44 %. There was a 32% who were infected that had the vaccine. This states that those who received the vaccine had less people infected where as the one with the placebo were more infected. Proving that the vaccine is more credible. 
+The men who got infected from COVID19 and was given the placebo had a 68.44 %. There was a 32% who were infected that had the vaccine. This states that those who received the vaccine had less people infected where as the one with the placebo were more infected. Proving that the vaccine is more credible.
 
 
 ##Inferential
