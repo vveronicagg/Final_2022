@@ -84,7 +84,7 @@ hi=(Mfish$conf.int[2]/(Mfish$conf.int[2] +1))*100
 options(digits=2)
 ```
 
-the hi is 73 and the low is 63
+the hi is 73 and the low is 63.
 
 ## Females
 
