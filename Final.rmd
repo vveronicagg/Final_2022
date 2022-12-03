@@ -224,7 +224,7 @@ hi is 29 and low is 9
 
 # Overall Results and Conclusions
 
-Finally, looking at all the data from drug users, gays, male, and female it looks like the men who took the vaccine and were not gay showed better results with covid. There was only 30% of the male who got infected and had the vaccine with the placebo it was 60%. For the females the ones who took the vaccine had 58% and with the vaccine it was 41% with the placebo. For the LGBQT about 10% got infected received placebo, and there was a 78% of those who had the vaccine. For the drug users with the vaccine had a 83% and the ones who took the placebo was 17%. Again the male has the highest effectiveness compared to all the other categories and the highest p-value with 5.307e-12. 
+Finally, looking at all the data from drug users, gays, male, and female it looks like the men who took the vaccine and were not gay showed better results with covid. There was only 30% of the male who got infected and had the vaccine with the placebo it was 60%. For the females the ones who took the vaccine had 58% and with the vaccine it was 41% with the placebo. For the LGBQT about 10% got infected received placebo, and there was a 78% of those who had the vaccine. For the drug users with the vaccine had a 83% and the ones who took the placebo was 17%. Again the male has the highest effectiveness compared to all the other categories and the highest p-value with 5.307e-12.
 
 
 
