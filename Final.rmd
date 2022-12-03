@@ -205,7 +205,7 @@ DrugUserfish <- fisher.test(table1)
 DrugUserfish
 ```
 
-The p-value is 3e-07, 95 percent confidence interval is 0.094, 0.418. The p-vale is very low. 
+The p-value is 3e-07, 95 percent confidence interval is 0.094, 0.418. The p-vale is very low.
 
 ```{r}
 effect <- DrugUserfish$p.value/(DrugUserfish$p.value +1)
