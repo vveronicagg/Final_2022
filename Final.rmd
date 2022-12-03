@@ -186,7 +186,7 @@ basicCC <- ggplot(basic,aes(x=infected,y=prcnt*100,fill=treatment))
 basicCC + geom_bar(stat="identity", position = "dodge")
 ```
 
-The ones who took the the vaccine had a 83% and the ones who took the placebo was 17%. Stating that the drug users had more chances of getting covid with the vaccine.
+The ones who took the the vaccine had a 83% and the ones who took the placebo was 17%. Stating that the drug users had more chances of getting covid with the vaccine. 
 
 # Numerical
 ```{r}
