@@ -48,7 +48,7 @@ basicCC <- ggplot(basic,aes(x=infected,y=prcnt*100,fill=treatment))
 basicCC + geom_bar(stat="identity", position = "dodge")
 ```
 
-The bar chart shows that the males that had COVID19 who received the placebo had over 60%, and the ones who received the vaccine had 30% infected. 
+The bar chart shows that the males that had COVID19 who received the placebo had over 60%, and the ones who received the vaccine had 30% infected.  
 
 ## Numerical
 ```{r}
